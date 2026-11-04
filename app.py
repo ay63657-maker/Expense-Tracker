@@ -374,7 +374,7 @@ def transactions():
 @app.route("/add-transaction", methods=["GET", "POST"])
 @login_required
 def add_transaction():
-    if request.method == "POST":
+    if  request.method == "POST":
         title = request.form.get("title", "").strip()
         category = request.form.get("category", "").strip()
         amount_text = request.form.get("amount", "").strip()
