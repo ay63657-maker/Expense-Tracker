@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Add Transaction — ExpensePro{% endblock %}
+{% block content %}
+<div class="container page narrow"><div class="page-head"><div><div class="eyebrow">MONEY MOVEMENT</div><h1>Add transaction</h1><p>Record income or expense.</p></div></div>
+<div class="panel"><form method="POST" class="form">
+<div class="type-switch"><label><input type="radio" name="type" value="expense" checked><span>− Expense</span></label><label><input type="radio" name="type" value="income"><span>＋ Income</span></label></div>
+<div class="two-col"><label>Title<input name="title" placeholder="e.g. Grocery shopping" required></label><label>Amount (₹)<input name="amount" type="number" step="0.01" min="0.01" placeholder="0.00" required></label></div>
+<div class="two-col"><label>Category<select name="category">{% for c in categories %}<option value="{{ c }}">{{ c }}</option>{% endfor %}</select></label><label>Date<input type="date" name="transaction_date" value="{{ today }}" required></label></div>
+<label>Note <span class="muted">(optional)</span><textarea name="note" rows="4" placeholder="Add a short note..."></textarea></label>
+<div class="form-actions"><a class="btn btn-light" href="{{ url_for('dashboard') }}">Cancel</a><button class="btn" type="submit">Save Transaction</button></div>
+</form></div></div>
+{% endblock %}

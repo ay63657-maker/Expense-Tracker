@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Profile — ExpensePro{% endblock %}
+{% block content %}
+<div class="container page narrow"><div class="page-head"><div><div class="eyebrow">ACCOUNT</div><h1>Profile settings</h1><p>Manage your account details and password.</p></div></div>
+<div class="panel"><h2>Personal details</h2><form method="POST" class="form"><label>Full name<input name="name" value="{{ user.name }}" required></label><label>Email<input type="email" name="email" value="{{ user.email }}" required></label><button class="btn" type="submit">Save Profile</button></form></div>
+<div class="panel"><h2>Change password</h2><form method="POST" action="{{ url_for('change_password') }}" class="form"><label>Current password<input type="password" name="current_password" required></label><label>New password<input type="password" name="new_password" minlength="6" required></label><label>Confirm new password<input type="password" name="confirm_password" minlength="6" required></label><button class="btn" type="submit">Change Password</button></form></div>
+</div>
+{% endblock %}

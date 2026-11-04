@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — ExpensePro{% endblock %}
+{% block content %}
+<div class="container page">
+<div class="page-head"><div><div class="eyebrow">OVERVIEW</div><h1>Hello, {{ current_user['name'] }} 👋</h1><p>Your financial snapshot is ready.</p></div><a class="btn" href="{{ url_for('add_transaction') }}">＋ Add Transaction</a></div>
+
+<div class="stats-grid">
+<div class="stat primary"><span>Available Balance</span><strong>₹{{ "{:,.2f}".format(summary.balance) }}</strong><small>Income minus expenses</small></div>
+<div class="stat"><span>Total Income</span><strong class="green">₹{{ "{:,.2f}".format(summary.income) }}</strong><small>All recorded income</small></div>
+<div class="stat"><span>Total Expenses</span><strong class="red">₹{{ "{:,.2f}".format(summary.expense) }}</strong><small>All recorded expenses</small></div>
+<div class="stat"><span>Monthly Budget</span><strong>₹{{ "{:,.2f}".format(summary.budget) }}</strong><small>{{ "{:.0f}".format(summary.used) }}% used</small></div>
+</div>
+
+<div class="two-panels">
+<div class="panel"><div class="panel-head"><div><h2>Spending by category</h2><p>Your expense distribution</p></div><a href="{{ url_for('reports') }}">View report →</a></div>
+{% if category_data %}{% for item in category_data[:7] %}<div class="category-row"><div class="category-label"><span>{{ item.category }}</span><b>₹{{ "{:,.0f}".format(item.total) }}</b></div><div class="progress"><i style="width:{{ item.percent }}%"></i></div></div>{% endfor %}{% else %}<div class="empty">No expense data yet. Add your first transaction.</div>{% endif %}
+</div>
+<div class="panel"><div class="panel-head"><div><h2>Budget progress</h2><p>Monthly spending limit ({{ summary.current_month }})</p></div><a href="{{ url_for('budget') }}">Manage →</a></div>
+<div class="budget-meter" style="background: conic-gradient(var(--primary) {{ summary.used_bar }}%, #e2e8f0 0);"><div><b>{{ "{:.0f}".format(summary.used) }}%</b><small>used</small></div></div>
+<div class="line-row"><span>Spent this month</span><b>₹{{ "{:,.0f}".format(summary.month_expense) }}</b></div><div class="line-row"><span>Monthly Budget</span><b>₹{{ "{:,.0f}".format(summary.budget) }}</b></div>
+{% if summary.budget_over > 0 %}<div class="notice danger">Budget exceeded by ₹{{ "{:,.0f}".format(summary.budget_over) }}.</div>{% elif summary.budget > 0 %}<div class="notice success">₹{{ "{:,.0f}".format(summary.remaining) }} remaining this month.</div>{% else %}<div class="notice">Set a monthly budget to start tracking it.</div>{% endif %}
+</div></div>
+
+<div class="panel"><div class="panel-head"><div><h2>Recent transactions</h2><p>Your latest activity</p></div><a href="{{ url_for('transactions') }}">View all →</a></div>
+{% if recent %}<div class="table-wrap"><table><thead><tr><th>Transaction</th><th>Category</th><th>Date</th><th>Type</th><th>Amount</th><th></th></tr></thead><tbody>
+{% for t in recent %}<tr><td><b>{{ t.title }}</b><small>{{ t.note or 'No note' }}</small></td><td>{{ t.category }}</td><td>{{ t.transaction_date }}</td><td><span class="pill {{ t.type }}">{{ t.type|capitalize }}</span></td><td class="{{ 'green' if t.type=='income' else 'red' }}">{{ '+' if t.type=='income' else '-' }}₹{{ "{:,.2f}".format(t.amount) }}</td><td><a class="table-link" href="{{ url_for('edit_transaction', transaction_id=t.id) }}">Edit</a></td></tr>{% endfor %}
+</tbody></table></div>{% else %}<div class="empty">No transactions yet.</div>{% endif %}
+</div>
+</div>
+{% endblock %}

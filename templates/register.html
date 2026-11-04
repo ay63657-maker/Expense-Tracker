@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Register — ExpensePro{% endblock %}
+{% block content %}
+<section class="auth-page"><div class="auth-card wide">
+<div class="auth-head"><span class="brand-icon big">₹</span><h1>Create your account</h1><p>Start managing your personal finances professionally.</p></div>
+<form method="POST" class="form">
+<div class="two-col"><label>Full name<input type="text" name="name" placeholder="Your name" required autocomplete="name"></label><label>Email<input type="email" name="email" placeholder="you@example.com" required autocomplete="email"></label></div>
+<div class="two-col"><label>Password<input type="password" name="password" placeholder="Minimum 6 characters" required autocomplete="new-password"></label><label>Confirm password<input type="password" name="confirm_password" placeholder="Repeat password" required autocomplete="new-password"></label></div>
+<button class="btn full" type="submit">Create Account</button>
+<p class="form-note">Already registered? <a href="{{ url_for('login') }}">Login here</a></p>
+</form>
+</div></section>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Login — ExpensePro{% endblock %}
+{% block content %}
+<section class="auth-page"><div class="auth-card">
+<div class="auth-head"><span class="brand-icon big">₹</span><h1>Welcome back</h1><p>Login to access your financial dashboard.</p></div>
+<form method="POST" class="form">
+<label>Email address<input type="email" name="email" placeholder="you@example.com" required autocomplete="email"></label>
+<label>Password<input type="password" name="password" placeholder="Enter your password" required autocomplete="current-password"></label>
+<button class="btn full" type="submit">Login to Dashboard</button>
+<p class="form-note">Don't have an account? <a href="{{ url_for('register') }}">Create an account</a></p>
+</form>
+</div></section>
+{% endblock %}

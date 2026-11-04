@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Budget — ExpensePro{% endblock %}
+{% block content %}
+<div class="container page narrow"><div class="page-head"><div><div class="eyebrow">SPENDING PLAN</div><h1>Monthly budget</h1><p>Set a spending limit and monitor it.</p></div></div>
+<div class="panel"><form method="POST" class="form"><label>Monthly budget (₹)<input type="number" name="amount" min="0" step="0.01" value="{{ summary.budget }}" placeholder="50000" required></label><button class="btn" type="submit">Save Budget</button></form>
+<div class="budget-overview"><div><span>Monthly Budget</span><b>₹{{ "{:,.2f}".format(summary.budget) }}</b></div><div><span>Spent ({{ summary.current_month }})</span><b class="red">₹{{ "{:,.2f}".format(summary.month_expense) }}</b></div><div><span>Remaining</span><b class="{{ 'red' if summary.remaining < 0 else 'green' }}">₹{{ "{:,.2f}".format(summary.remaining) }}</b></div></div>
+<div class="progress big"><i style="width:{{ summary.used_bar }}%"></i></div><p class="muted">{{ "{:.1f}".format(summary.used) }}% of your monthly budget is used for {{ summary.current_month }}.</p>
+</div></div>
+{% endblock %}

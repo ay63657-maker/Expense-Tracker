@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Edit Transaction — ExpensePro{% endblock %}
+{% block content %}
+<div class="container page narrow"><div class="page-head"><div><div class="eyebrow">UPDATE RECORD</div><h1>Edit transaction</h1><p>Update the details of this transaction.</p></div></div>
+<div class="panel"><form method="POST" class="form">
+<div class="type-switch"><label><input type="radio" name="type" value="expense" {{ 'checked' if transaction.type=='expense' }}><span>− Expense</span></label><label><input type="radio" name="type" value="income" {{ 'checked' if transaction.type=='income' }}><span>＋ Income</span></label></div>
+<div class="two-col"><label>Title<input name="title" value="{{ transaction.title }}" required></label><label>Amount (₹)<input name="amount" type="number" step="0.01" min="0.01" value="{{ transaction.amount }}" required></label></div>
+<div class="two-col"><label>Category<select name="category">{% for c in categories %}<option value="{{ c }}" {{ 'selected' if transaction.category==c }}>{{ c }}</option>{% endfor %}</select></label><label>Date<input type="date" name="transaction_date" value="{{ transaction.transaction_date }}" required></label></div>
+<label>Note<textarea name="note" rows="4">{{ transaction.note }}</textarea></label>
+<div class="form-actions"><a class="btn btn-light" href="{{ url_for('transactions') }}">Cancel</a><button class="btn" type="submit">Update Transaction</button></div>
+</form></div></div>
+{% endblock %}

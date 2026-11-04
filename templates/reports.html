@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Reports — ExpensePro{% endblock %}
+{% block content %}
+<div class="container page"><div class="page-head"><div><div class="eyebrow">INSIGHTS</div><h1>Financial reports</h1><p>Understand your spending patterns.</p></div><a class="btn btn-light" href="{{ url_for('export_csv') }}">↓ Export CSV</a></div>
+<div class="stats-grid three"><div class="stat"><span>Total Income</span><strong class="green">₹{{ "{:,.0f}".format(summary.income) }}</strong></div><div class="stat"><span>Total Expenses</span><strong class="red">₹{{ "{:,.0f}".format(summary.expense) }}</strong></div><div class="stat"><span>Balance</span><strong>₹{{ "{:,.0f}".format(summary.balance) }}</strong></div></div>
+<div class="two-panels"><div class="panel"><div class="panel-head"><div><h2>Monthly overview</h2><p>Income vs expense</p></div></div><canvas id="monthlyChart" height="260"></canvas></div>
+<div class="panel"><div class="panel-head"><div><h2>Expense categories</h2><p>Distribution</p></div></div>{% if category_data %}{% for item in category_data %}<div class="category-row"><div class="category-label"><span>{{ item.category }}</span><b>₹{{ "{:,.0f}".format(item.total) }} · {{ "{:.1f}".format(item.percent) }}%</b></div><div class="progress"><i style="width:{{ item.percent }}%"></i></div></div>{% endfor %}{% else %}<div class="empty">No expense data available.</div>{% endif %}</div></div>
+</div>
+<script>window.reportData={{ {"months": monthly|map(attribute="month")|list, "income": monthly|map(attribute="income")|list, "expense": monthly|map(attribute="expense")|list}|tojson }};</script>
+{% endblock %}

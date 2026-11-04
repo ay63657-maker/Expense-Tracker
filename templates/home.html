@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}ExpensePro — Personal Finance Manager{% endblock %}
+{% block content %}
+<section class="hero">
+<div class="container hero-grid">
+  <div>
+    <div class="eyebrow">PERSONAL FINANCE MANAGER</div>
+    <h1>Know where your <span>money</span> goes.</h1>
+    <p class="hero-text">Track income, manage expenses, plan a monthly budget and turn your financial activity into clear insights.</p>
+    <div class="hero-actions">
+      <a class="btn" href="{{ url_for('register') }}">Start Tracking Free →</a>
+      <a class="btn btn-light" href="{{ url_for('about') }}">Explore Features</a>
+    </div>
+    <div class="trust"><span>✓ Secure accounts</span><span>✓ SQLite database</span><span>✓ Responsive design</span></div>
+  </div>
+  <div class="dashboard-preview">
+    <div class="preview-head"><span>Financial Overview</span><span>•••</span></div>
+    <small>Available Balance</small><h2>₹48,250</h2>
+    <div class="mini-chart"><i style="height:42%"></i><i style="height:65%"></i><i style="height:50%"></i><i style="height:78%"></i><i style="height:58%"></i><i style="height:88%"></i><i style="height:70%"></i></div>
+    <div class="preview-cards"><div><small>Income</small><b>₹65,000</b></div><div><small>Expenses</small><b>₹16,750</b></div></div>
+  </div>
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+<div class="section-title"><div class="eyebrow">POWERFUL FEATURES</div><h2>Everything in one place</h2><p>Built to make personal money management simple and understandable.</p></div>
+<div class="feature-grid">
+<div class="feature"><div>📊</div><h3>Smart Dashboard</h3><p>Income, expenses, balance and budget progress at a glance.</p></div>
+<div class="feature"><div>💳</div><h3>Transactions</h3><p>Add, edit, delete, search and filter your financial records.</p></div>
+<div class="feature"><div>🎯</div><h3>Budget Planning</h3><p>Set a monthly spending limit and monitor your usage.</p></div>
+<div class="feature"><div>📈</div><h3>Reports</h3><p>See category-wise spending and monthly financial trends.</p></div>
+<div class="feature"><div>📥</div><h3>CSV Export</h3><p>Download your transaction records as a spreadsheet-friendly CSV.</p></div>
+<div class="feature"><div>🔐</div><h3>Secure Login</h3><p>Passwords are stored using secure password hashing.</p></div>
+</div>
+</div>
+</section>
+<section class="cta"><div class="container cta-inner"><div><h2>Start organizing your finances today.</h2><p>Free to run locally and perfect for a portfolio project.</p></div><a class="btn btn-white" href="{{ url_for('register') }}">Create Account</a></div></section>
+{% endblock %}

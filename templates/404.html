@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Page Not Found — ExpensePro{% endblock %}
+{% block content %}
+<div class="container page narrow"><div class="panel center"><div class="error-code">404</div><h1>Page not found</h1><p class="muted">The page you requested does not exist.</p><a class="btn" href="{{ url_for('home') }}">Back to Home</a></div></div>
+{% endblock %}

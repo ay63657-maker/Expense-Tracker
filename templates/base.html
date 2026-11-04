@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}ExpensePro{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
+</head>
+<body>
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a class="brand" href="{{ url_for('home') }}"><span class="brand-icon">₹</span><span>Expense<span class="accent">Pro</span></span></a>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Toggle navigation">☰</button>
+    <div id="navLinks" class="nav-links">
+      <a href="{{ url_for('home') }}" class="{{ 'active' if request.endpoint == 'home' }}">Home</a>
+      <a href="{{ url_for('about') }}" class="{{ 'active' if request.endpoint == 'about' }}">About</a>
+      {% if current_user %}
+        <a href="{{ url_for('dashboard') }}" class="{{ 'active' if request.endpoint == 'dashboard' }}">Dashboard</a>
+        <a href="{{ url_for('transactions') }}" class="{{ 'active' if request.endpoint in ('transactions', 'add_transaction', 'edit_transaction') }}">Transactions</a>
+        <a href="{{ url_for('reports') }}" class="{{ 'active' if request.endpoint == 'reports' }}">Reports</a>
+        <a href="{{ url_for('budget') }}" class="{{ 'active' if request.endpoint == 'budget' }}">Budget</a>
+        <a href="{{ url_for('profile') }}" class="user-chip {{ 'active' if request.endpoint == 'profile' }}">👤 {{ current_user['name'] }}</a>
+        <a class="btn btn-sm btn-outline" href="{{ url_for('logout') }}">Logout</a>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="{{ 'active' if request.endpoint == 'login' }}">Login</a>
+        <a class="btn btn-sm" href="{{ url_for('register') }}">Get Started</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<div class="container flash-area">
+{% for category, message in messages %}
+<div class="flash {{ category }}">{{ message }} <button type="button" aria-label="Close" onclick="this.parentElement.remove()">×</button></div>
+{% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+
+{% block content %}{% endblock %}
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div><strong>ExpensePro</strong><p>Professional personal finance management with Flask and SQLite.</p></div>
+    <div><p>Python • Flask • SQLite • HTML • CSS • JavaScript</p><p>© 2026 ExpensePro</p></div>
+  </div>
+</footer>
+</body>
+</html>
